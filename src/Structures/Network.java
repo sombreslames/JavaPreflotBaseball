@@ -8,6 +8,8 @@ import tools.Tool;
 public class Network {
 	private String TeamName;
 	private Integer NbTeam;
+	
+
 	private Integer NbVertex;
 	private LinkedList<Vertex>[] linkedlist ;
 	
@@ -69,10 +71,11 @@ public class Network {
 					Temp1.setType(1);//DEVIENT UN POINT "ORIGINE"
 					//Temp.setOverflow(0);//PAS DE OVERFLOW CAR SOURCE
 					this.linkedlist[it]=new LinkedList<Vertex>();
-					Temp1.setCapacity(0);
-					//Temp1.setOverflow(0);
+					//Temp1.setCapacity(0);
 					this.linkedlist[it].add((Vertex) Temp1.clone());
-					this.linkedlist[it].add( Source );
+					Temp1 = (Vertex) Source.clone();
+					Temp1.setCapacity(Data1[i][j+1]);
+					this.linkedlist[it].add( Temp1 );
 					System.out.println(NamesOfTeam[i]+"/"+NamesOfTeam[j]);
 					it ++;
 				}
@@ -82,12 +85,13 @@ public class Network {
 				Temp1=new Vertex(Couple.clone(),0,0,0,0,1);
 				this.linkedlist[NbCouples+it2] = new LinkedList<Vertex>();
 				this.linkedlist[NbCouples+it2].add((Vertex) Temp1.clone());
-				//On recupere le puit pour l'ajouter en sucesseur
+				//On recupere le puit pour l'ajouter en successeur
 				Temp1 = (Vertex) this.linkedlist[this.NbVertex-1].get(0).clone();
 				Temp1.setType(3);
 				Temp1.setCapacity(Data1[index][0]+t.getNbVic(index)-t.getNbVic(it2));
 				this.linkedlist[NbCouples+it2].add((Vertex) Temp1.clone());
 				Temp1.setType(2);
+				Temp1.setIndice(Couple.clone());
 				this.linkedlist[this.NbVertex-1].add((Vertex) Temp1.clone());
 				it2 += 1 ;
 			}
@@ -130,6 +134,9 @@ public class Network {
 			
 		}
 		
+	}
+	public Integer getNbVertex() {
+		return NbVertex;
 	}
 	
 }
